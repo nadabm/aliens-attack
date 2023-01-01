@@ -30,6 +30,8 @@
 #include "physics/CCPhysicsWorld.h"
 #include "base/ccMacros.h"
 
+#include "AudioEngine.h"
+#include "audio/include/AudioEngine.h"
 #include <scripting/deprecated/CCDeprecated.h>
 #include <libwebsockets.h>
 
@@ -81,9 +83,9 @@ bool MainMenu::init()
   
     label->setPosition(Vec2(visibleSize.width / 2, visibleSize.height +origin.y-35));
     this->addChild(label, 1);
-    auto label1 = Label::createWithTTF("(press the 'enter' key to enter the spaceship) ", "fonts/arial.ttf", 20);
+    auto label1 = Label::createWithTTF("(press the 'enter' key to enter the spaceship) ", "fonts/arial.ttf", 15);
 
-    label1->setPosition(Vec2(visibleSize.width / 2, visibleSize.height + origin.y - 55));
+    label1->setPosition(Vec2(visibleSize.width / 2, visibleSize.height + origin.y - 65));
     this->addChild(label1, 1);
    
 
@@ -130,7 +132,13 @@ bool MainMenu::init()
         case EventKeyboard::KeyCode::KEY_W:
         case EventKeyboard::KeyCode::KEY_UP_ARROW:
         case EventKeyboard::KeyCode::KEY_SPACE:
-         //   SimpleAudioEngine::getInstance()->playEffect("jump.mp3");
+            // Load the sound effect into a cache
+           // auto effect = AudioEngine::play2d("jump.mp3", false, 1.0f);
+
+            // Play the sound effect
+            AudioEngine::play2d("jump.mp3", false, 1.0f);
+            
+
             DirY += 5.0f;
             break;
         case EventKeyboard::KeyCode::KEY_A:
@@ -404,7 +412,7 @@ bool MainMenu::onContactBegin1(PhysicsContact& contact)
                     auto scene = LevelUp::createScene();
                     Director::getInstance()->replaceScene(scene);
                     });
-
+                AudioEngine::play2d("levelup.mp3", false, 1.0f);
                 // Run the actions in sequence
                 auto seq = Sequence::create(delay, replace, nullptr);
                 this->runAction(seq);
