@@ -130,7 +130,7 @@ bool MainMenu::init()
         case EventKeyboard::KeyCode::KEY_W:
         case EventKeyboard::KeyCode::KEY_UP_ARROW:
         case EventKeyboard::KeyCode::KEY_SPACE:
-         //   SimpleAudioEngine::getInstance()->playEffect("jump.mp3");
+            AudioEngine::play2d("jump.mp3", false, 1.0f);
             DirY += 5.0f;
             break;
         case EventKeyboard::KeyCode::KEY_A:
