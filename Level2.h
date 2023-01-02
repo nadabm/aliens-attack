@@ -33,13 +33,24 @@ public:
   
     static cocos2d::Scene* createScene();
     virtual bool init();
-    
-    
+    cocos2d::Sprite* Knight;
+
+
+   // void update1(float delta);
+    int DirX = 0;
+    int DirY = 0;
+    void update(float dt);
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);
     
     // implement the "static create()" method manually
     CREATE_FUNC(Level2);
+private:
+    cocos2d::PhysicsWorld* sceneWorld;
+    void SetPhysicsWorld(cocos2d::PhysicsWorld* world) { sceneWorld = world; };
+
+    //bool onContactBegin(cocos2d::PhysicsContact& contact);
+    //bool onContactBegin1(cocos2d::PhysicsContact& contact);
 };
 
 #endif // __LEVEL_2_H__

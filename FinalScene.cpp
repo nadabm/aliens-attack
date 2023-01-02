@@ -91,7 +91,7 @@ void FinalScene::RETRY(cocos2d::Ref* pSender) {
         DelayTime::create(1.0),
         CallFunc::create([this]() {
             // Push the main menu scene onto the scene stack when the countdown is finished
-            auto scene = MainMenu::createScene();
+          auto scene = MainMenu::createScene();
             Director::getInstance()->pushScene(scene);
             }),
         nullptr

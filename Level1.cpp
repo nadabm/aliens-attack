@@ -23,6 +23,7 @@
  ****************************************************************************/
 
 #include "Level1.h"
+
 #include "LevelUp.h"
 #include "FinalScene.h"
 #include "HelloWorldScene.h"
@@ -41,7 +42,7 @@ Scene* MainMenu::createScene()
     // 'scene' is an autorelease object
     auto scene = Scene::createWithPhysics();
     scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
-    scene->getPhysicsWorld()->setGravity(Vec2(0, -500));
+    scene->getPhysicsWorld()->setGravity(Vec2(0, -600));
 
 
     // 'layer' is an autorelease object
@@ -107,6 +108,8 @@ bool MainMenu::init()
     playerBody->setTag(1);
     playerBody->setDynamic(true);
     playerBody->setContactTestBitmask(true);
+     
+    //playerBody->applyImpulse(Vec2(0, 100));
     //auto mobBody = PhysicsBody::createBox(Knight->getContentSize());
    // mobBody->setContactTestBitmask(true); // Set contact test bitmask to true
     //Knight->setPhysicsBody(mobBody);
@@ -131,8 +134,15 @@ bool MainMenu::init()
         case EventKeyboard::KeyCode::KEY_W:
         case EventKeyboard::KeyCode::KEY_UP_ARROW:
         case EventKeyboard::KeyCode::KEY_SPACE:
-            DirY += 5.0f;
-            AudioEngine::play2d("jump.mp3", false, 1.0f);
+   
+            
+                DirY += 5.0f;
+                AudioEngine::play2d("jump.mp3", false, 1.0f);
+                playerBody->applyImpulse(Vec2(0, -100));
+                playerBody->applyForce(Vec2(0, -100));
+        
+          
+            
             break;
         case EventKeyboard::KeyCode::KEY_A:
         case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
@@ -156,7 +166,9 @@ bool MainMenu::init()
         case EventKeyboard::KeyCode::KEY_W:
         case EventKeyboard::KeyCode::KEY_UP_ARROW:
         case EventKeyboard::KeyCode::KEY_SPACE:
+       
             DirY -= 5.0f;
+        
             break;
         case EventKeyboard::KeyCode::KEY_A:
         case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
@@ -244,7 +256,7 @@ bool MainMenu::init()
       
 
         // Create physics body for enemy sprite and set its tag to 2
-        auto enemyBody = PhysicsBody::createBox(Size(50, 50));
+        auto enemyBody = PhysicsBody::createBox(Size(40, 30));
         enemyBody->setTag(2);
         enemyBody->setDynamic(false);
         enemyBody->setContactTestBitmask(true);
@@ -405,11 +417,12 @@ bool MainMenu::onContactBegin1(PhysicsContact& contact)
                     auto scene = LevelUp::createScene();
                     Director::getInstance()->replaceScene(scene);
                     });
-
+                AudioEngine::play2d("levelup.mp3", false, 1.0f);
                 // Run the actions in sequence
                 auto seq = Sequence::create(delay, replace, nullptr);
                 this->runAction(seq);
             }
+           
         };
 
         // Register the EventListenerKeyboard object with the event dispatcher
