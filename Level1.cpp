@@ -29,6 +29,7 @@
 #include "physics/CCPhysicsBody.h"
 #include "physics/CCPhysicsWorld.h"
 #include "base/ccMacros.h"
+#include "AudioEngine.h"
 
 #include <scripting/deprecated/CCDeprecated.h>
 #include <libwebsockets.h>
@@ -130,8 +131,8 @@ bool MainMenu::init()
         case EventKeyboard::KeyCode::KEY_W:
         case EventKeyboard::KeyCode::KEY_UP_ARROW:
         case EventKeyboard::KeyCode::KEY_SPACE:
-            AudioEngine::play2d("jump.mp3", false, 1.0f);
             DirY += 5.0f;
+            AudioEngine::play2d("jump.mp3", false, 1.0f);
             break;
         case EventKeyboard::KeyCode::KEY_A:
         case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
@@ -210,7 +211,7 @@ bool MainMenu::init()
        Enemy->setScale(1);
 
        // Create physics body for enemy sprite and set its tag to 2
-       auto enemyBody = PhysicsBody::createBox(Size(50, 50));
+       auto enemyBody = PhysicsBody::createBox(Size(40, 30));
        
        enemyBody->setContactTestBitmask(true);
        enemyBody->setDynamic(false);
@@ -271,7 +272,7 @@ bool MainMenu::init()
 
 
         // Create physics body for enemy sprite and set its tag to 2
-        auto enemyBody = PhysicsBody::createBox(Size(50, 50));
+        auto enemyBody = PhysicsBody::createBox(Size(40, 30));
         enemyBody->setTag(2);
         enemyBody->setDynamic(false);
         enemyBody->setContactTestBitmask(true);
