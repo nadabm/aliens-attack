@@ -23,6 +23,7 @@
  ****************************************************************************/
 
 #include "FinalScene.h"
+#include "Level2.h"
 #include "Level1.h"
 #include <scripting/deprecated/CCDeprecated.h>
 USING_NS_CC;

@@ -278,6 +278,64 @@ bool MainMenu::init()
     }
     {
         auto Enemy = Sprite::create("enemy.png");
+        Enemy->setPosition(Vec2(100, (visibleSize.height / 2) + 50));
+        Enemy->setScale(1);
+
+        // Create physics body for enemy sprite and set its tag to 2
+        auto enemyBody = PhysicsBody::createBox(Size(40, 30));
+
+        enemyBody->setContactTestBitmask(true);
+        enemyBody->setDynamic(false);
+        enemyBody->setTag(2);
+
+        // Attach physics body to enemy sprite
+        Enemy->setPhysicsBody(enemyBody);
+
+        // Add enemy sprite to the scene
+        this->addChild(Enemy, 250);
+
+        // Create the move action that moves the character from top to bottom
+        auto moveToBottom = MoveTo::create(3, Vec2(800, 500)); // Move to bottom of the screen in 8 seconds
+        auto moveToTop = MoveTo::create(3, Vec2(800, 100));
+        // Create a sequence of actions that includes the move action
+        auto sequence = Sequence::create(moveToBottom, moveToTop, nullptr);
+
+        // Create a repeat forever action that repeats the sequence of actions indefinitely
+        auto repeatForever = RepeatForever::create(sequence);
+        // Run actions on enemy sprite
+        Enemy->runAction(repeatForever);
+    }
+    {
+        auto Enemy = Sprite::create("enemy.png");
+        Enemy->setPosition(Vec2(100, (visibleSize.height / 2) + 50));
+        Enemy->setScale(1);
+
+        // Create physics body for enemy sprite and set its tag to 2
+        auto enemyBody = PhysicsBody::createBox(Size(40, 30));
+
+        enemyBody->setContactTestBitmask(true);
+        enemyBody->setDynamic(false);
+        enemyBody->setTag(2);
+
+        // Attach physics body to enemy sprite
+        Enemy->setPhysicsBody(enemyBody);
+
+        // Add enemy sprite to the scene
+        this->addChild(Enemy, 250);
+
+        // Create the move action that moves the character from top to bottom
+        auto moveToBottom = MoveTo::create(3, Vec2(100, 400)); // Move to bottom of the screen in 8 seconds
+        auto moveToTop = MoveTo::create(3, Vec2(800, 400));
+        // Create a sequence of actions that includes the move action
+        auto sequence = Sequence::create(moveToBottom, moveToTop, nullptr);
+
+        // Create a repeat forever action that repeats the sequence of actions indefinitely
+        auto repeatForever = RepeatForever::create(sequence);
+        // Run actions on enemy sprite
+        Enemy->runAction(repeatForever);
+    }
+    {
+        auto Enemy = Sprite::create("enemy.png");
         Enemy->setPosition(Vec2(0, 600));
 
         Enemy->setScale(1);
@@ -380,7 +438,7 @@ void MainMenu::update(float dt) {
 
     float newPosX = MainMenu::Knight->getPositionX() + (DirX);
     float newPosY = MainMenu::Knight->getPositionY() + (DirY);
-
+    MainMenu::Knight->setRotation(0);
     MainMenu::Knight->setPosition(newPosX, newPosY);
 }
 
