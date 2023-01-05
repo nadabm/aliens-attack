@@ -223,9 +223,11 @@ bool Level2::init()
   auto contactListener = EventListenerPhysicsContact::create();
      contactListener->onContactBegin = CC_CALLBACK_1(Level2::onContactBegin, this);
   this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
-  auto contactListener = EventListenerPhysicsContact::create();
-  contactListener->onContactBegin = CC_CALLBACK_1(Level2::onContactBegin1, this);
-  this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
+
+  auto contactListen = EventListenerPhysicsContact::create();
+  contactListen->onContactBegin = CC_CALLBACK_1(Level2::onContactBegin1, this);
+  this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListen, this);
+ 
    
     {//1
         auto stone = Sprite::create("stone.png");
@@ -488,7 +490,7 @@ bool Level2::init()
 
 
             DirY += 4.0f;
-            //AudioEngine::play2d("jump.mp3", false, 1.0f);
+            AudioEngine::play2d("jump.mp3", false, 1.0f);
             playerBody->applyImpulse(Vec2(0, -100));
             playerBody->applyForce(Vec2(0, -100));
 
@@ -554,6 +556,14 @@ void Level2::update(float dt) {
     float newPosY = Level2::Knight->getPositionY() + (DirY);
     Level2::Knight->setRotation(0);// to stop him from fallin down 
     Level2::Knight->setPosition(newPosX, newPosY);
+    if (newPosX < 70){
+        // Replace the scene
+        auto replace = CallFunc::create([&]() {
+            auto scene = FinalScene::createScene();
+            Director::getInstance()->replaceScene(scene);
+            });
+
+    }
 }
 
 
@@ -567,7 +577,7 @@ bool Level2::onContactBegin(PhysicsContact& contact)
     {
         // Collision between player and enemy
         // Player takes damage
-
+        AudioEngine::play2d("stop.mp3", false, 1.0f);
         auto visibleSize = Director::getInstance()->getVisibleSize();
         // Vec2 origin = Director::getInstance()->getVisibleOrigin();//variable is not in scope or has not been declared.
          // Create a message label
@@ -591,19 +601,17 @@ bool Level2::onContactBegin(PhysicsContact& contact)
 
     return true;
 }
+
 bool Level2::onContactBegin1(PhysicsContact& contact)
 {
     auto bodyA = contact.getShapeA()->getBody();
     auto bodyB = contact.getShapeB()->getBody();
 
-    if ((bodyA->getTag() == 11 && bodyB->getTag() == 4) ||
-        (bodyA->getTag() == 4 && bodyB->getTag() == 11))
+    if ((bodyA->getTag() == 11 && bodyB->getTag() == 14) ||
+        (bodyA->getTag() == 14 && bodyB->getTag() == 11))
     {
         // Collision between player and enemy
         // Player takes damage
-
-
-
 
 // Define the EventListenerKeyboard object and set its onKeyPressed callback function
         auto keyboardListener = EventListenerKeyboard::create();
@@ -634,5 +642,8 @@ bool Level2::onContactBegin1(PhysicsContact& contact)
         Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(keyboardListener, this);
 
     }
+
+    return true;
+}
 
 

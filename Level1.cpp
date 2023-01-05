@@ -501,7 +501,7 @@ bool MainMenu::onContactBegin(PhysicsContact& contact)
         // Collision between player and enemy
         // Player takes damage
        bodyA->setVelocity(Vec2::ZERO);
-       
+       AudioEngine::play2d("stop.mp3", false, 1.0f);
         bodyB->setVelocity(Vec2::ZERO);
         auto visibleSize = Director::getInstance()->getVisibleSize();
         Vec2 origin = Director::getInstance()->getVisibleOrigin();//variable is not in scope or has not been declared.
