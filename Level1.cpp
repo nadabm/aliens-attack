@@ -41,7 +41,7 @@ Scene* MainMenu::createScene()
 {
     // 'scene' is an autorelease object
     auto scene = Scene::createWithPhysics();
-    scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+   // scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL,3);
     scene->getPhysicsWorld()->setGravity(Vec2(0, -600));
 
 
@@ -136,8 +136,8 @@ bool MainMenu::init()
         case EventKeyboard::KeyCode::KEY_SPACE:
    
             
-                DirY += 5.0f;
-                AudioEngine::play2d("jump.mp3", false, 1.0f);
+                DirY += 4.0f;
+                AudioEngine::play2d("jumpP.mp3", false, 1.0f);
                 playerBody->applyImpulse(Vec2(0, -100));
                 playerBody->applyForce(Vec2(0, -100));
         
@@ -167,7 +167,7 @@ bool MainMenu::init()
         case EventKeyboard::KeyCode::KEY_UP_ARROW:
         case EventKeyboard::KeyCode::KEY_SPACE:
        
-            DirY -= 5.0f;
+            DirY -= 4.0f;
         
             break;
         case EventKeyboard::KeyCode::KEY_A:
@@ -394,7 +394,6 @@ bool MainMenu::init()
 
         spaceship->setScale(1.7);
         // Create physics body for enemy sprite and set its tag to 2
-        ;
 
         spaceshipBody->setTag(3);
         spaceshipBody->setDynamic(false);
@@ -405,11 +404,6 @@ bool MainMenu::init()
         // Add enemy sprite to the scene
         this->addChild(spaceship);
 
-
-        auto rotateBy = RotateBy::create(1.0, 360);  // Rotate by 360 degrees in 1 second
-        auto repeatForever = RepeatForever::create(rotateBy);  // Repeat the rotation indefinitely
-        // Run actions on enemy sprite
-       // spaceship->runAction(repeatForever);
 
     }
 
@@ -500,9 +494,9 @@ bool MainMenu::onContactBegin(PhysicsContact& contact)
     {
         // Collision between player and enemy
         // Player takes damage
-       bodyA->setVelocity(Vec2::ZERO);
+
        AudioEngine::play2d("stop.mp3", false, 1.0f);
-        bodyB->setVelocity(Vec2::ZERO);
+
         auto visibleSize = Director::getInstance()->getVisibleSize();
         Vec2 origin = Director::getInstance()->getVisibleOrigin();//variable is not in scope or has not been declared.
         // Create a message label

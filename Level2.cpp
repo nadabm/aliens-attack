@@ -22,6 +22,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 #include "LevelUp.h"
+#include "congrats.h"
 #include "Level2.h"
 #include "AudioEngine.h"
 #include "FinalScene.h"
@@ -33,7 +34,7 @@ Scene* Level2::createScene()
 {
     // 'scene' is an autorelease object
     auto scene = Scene::createWithPhysics();
-   scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+   //scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
     scene->getPhysicsWorld()->setGravity(Vec2(0, -500));
 
 
@@ -68,6 +69,11 @@ bool Level2::init()
     Sprite* map2 = Sprite::create("bg22.jpg");
     map2->setPosition(Vec2(visibleSize.width/2  , visibleSize.height /2));
     this->addChild(map2, 100);
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    auto label = Label::createWithTTF("Level 2:  ", "fonts/arial.ttf", 24);
+
+    label->setPosition(Vec2(visibleSize.width / 2, visibleSize.height + origin.y-35 ));
+    this->addChild(label, 200);
     //-----------------------------my player//
 
     Knight = Sprite::create("alien2.png");
@@ -75,7 +81,7 @@ bool Level2::init()
     Knight->setScale(0.5);
 
     // Create physics body for player sprite and set its tag to 1
-    auto playerBody = PhysicsBody::createBox(Size(70, 100));
+    auto playerBody = PhysicsBody::createBox(Size(70, 120));
     playerBody->setTag(11);
     playerBody->setDynamic(true);
     playerBody->setContactTestBitmask(true);
@@ -171,7 +177,7 @@ bool Level2::init()
 
         enemyBody->setContactTestBitmask(true);
         enemyBody->setDynamic(false);
-        enemyBody->setTag(2);
+        enemyBody->setTag(12);
 
         // Attach physics body to enemy sprite
         Enemy2->setPhysicsBody(enemyBody);
@@ -232,7 +238,7 @@ bool Level2::init()
     {//1
         auto stone = Sprite::create("stone.png");
         stone->setPosition(Vec2(850, 100));
-        auto spaceshipBody = PhysicsBody::createBox(Size(200, 30));
+        auto spaceshipBody = PhysicsBody::createBox(Size(200, 40));
 
         stone->setScale(0.7);
         // Create physics body for enemy sprite and set its tag to 2
@@ -431,7 +437,7 @@ bool Level2::init()
     }
     {//10
         auto stone = Sprite::create("stone.png");
-        stone->setPosition(Vec2(90, 450));
+        stone->setPosition(Vec2(70, 450));
         auto spaceshipBody = PhysicsBody::createBox(Size(200, 40));
 
         stone->setScale(0.7);
@@ -452,7 +458,7 @@ bool Level2::init()
     //----spaceship----------//
     {
         auto spaceship = Sprite::create("spaceship2.png");
-        spaceship->setPosition(Vec2(93, 530));
+        spaceship->setPosition(Vec2(73, 540));
         auto spaceshipBody = PhysicsBody::createBox(Size(50, 330));
 
         spaceship->setScale(0.4);
@@ -490,7 +496,7 @@ bool Level2::init()
 
 
             DirY += 4.0f;
-            AudioEngine::play2d("jump.mp3", false, 1.0f);
+            AudioEngine::play2d("jumpP.mp3", false, 1.0f);
             playerBody->applyImpulse(Vec2(0, -100));
             playerBody->applyForce(Vec2(0, -100));
 
@@ -627,7 +633,7 @@ bool Level2::onContactBegin1(PhysicsContact& contact)
 
                 // Replace the scene
                 auto replace = CallFunc::create([&]() {
-                    auto scene = LevelUp::createScene();
+                    auto scene = Congrats::createScene();
                     Director::getInstance()->replaceScene(scene);
                     });
                 AudioEngine::play2d("levelup.mp3", false, 1.0f);

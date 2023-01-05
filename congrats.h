@@ -22,40 +22,25 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __LEVEL_1_H__
-#define __LEVEL_1_H__
+#ifndef __CONGRATS_H__
+#define __CONGRATS_H__
 
 #include "cocos2d.h"
 
-class MainMenu : public cocos2d::Scene
+class Congrats : public cocos2d::Scene
 {
 public:
   
     static cocos2d::Scene* createScene();
     virtual bool init();
     
+    
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);
-    void menuCloseCallback(std::string message);
-    void update1(float delta);
-    int DirX = 0;
-    int DirY = 0;
-    cocos2d::Sprite* Knight;
-    void update(float dt);
     
     // implement the "static create()" method manually
-    CREATE_FUNC(MainMenu);
-    void MENU1(Ref* pSender);
- 
-    //cocos2d::Sprite* mySprite;
-private:
-    cocos2d::PhysicsWorld* sceneWorld;
-
-
-    void SetPhysicsWorld(cocos2d::PhysicsWorld* world) { sceneWorld = world; };
-
-    bool onContactBegin(cocos2d::PhysicsContact& contact);
-    bool onContactBegin1(cocos2d::PhysicsContact& contact);
+    CREATE_FUNC(Congrats);
+    void MENU(Ref* pSender);
 };
 
-#endif // __LEVEL_1_H__
+#endif // __FINAL_SCENE_H__
