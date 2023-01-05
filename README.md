@@ -1,19 +1,18 @@
-# Simple Cocos2d-x example
+# Simple Cocos2d-x game
 
 This is a simple game created using the Cocos2d-x C++ framework.
 
-# Happy Bunny
-This is a simple game about a bunny that has to catch the carrots and avoid the bombs. With this simple example you'll get some snippets that would help you with:
+#Aliens Attack
+This is a simple game about a player that has to reach the spaceship  and avoid the aliens. With this simple example you'll get some snippets that would help you with:
 
 1. Cocos2d-x Physics
 2. Transitions between Scenes
-3. True Type Fonts
-4. Bitmap Fonts
-5. Handling touch events
-6. Playing , pausing and changing audio volume
-7. Sprite handling
-8. Cocos2d-x Schedulers
-9. Use the accelerometer 
+3. Bitmap Fonts
+4. Handling touch events
+5. Playing , pausing and changing audio volume
+6. Sprite handling
+7. Cocos2d-x Schedulers
+8. Use the collision 
 
 # About Cocos2d-x
 
