@@ -1,6 +1,5 @@
-#aliens attack
-2d game using cocos2d-x and c++
-#about the game
+
+about the game:
 This is a simple game about a player  that has to reach the spaceship and avoid the aliens. 
 With this simple example you'll get some snippets that would help you with:
 1-Cocos2d-x Physics
